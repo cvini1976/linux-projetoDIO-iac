@@ -1,0 +1,101 @@
+#!/bin/bash
+
+# Autor: Carlos Vinicios
+# Data: 08/08/2022
+
+# Descrição: Script para criar uma estrutura de diretorio, grupo, usuarios
+# Colocando permissoes de grupos e para usuarios desses grupos
+
+echo "----Criando os diretorios na raiz----"
+
+echo ""
+
+echo "Informe a quantidade de diretorio que deseja criar: "
+read dire
+
+echo ""
+d=0
+while [ $d -lt $dire ]; do
+   echo "Digite um nome do diretorio: "
+   read diretorio
+   sudo mkdir /$diretorio
+   
+let d=$d+1
+
+echo ""
+
+echo "Directory ${diretorio} created!"
+
+done
+
+#sudo mkdir /publico /adm /ven /sec
+
+echo ""
+
+echo "----Criando os grupos para colocar os usuarios----" 
+
+echo "Informe a quantidade dos grupos que deseja criar: "
+read grupo
+
+g=0
+while [ $g -lt $grupo ]; do
+   echo "Digite um nome para o grupo: "
+   read diretorio
+   sudo groupadd $grupo
+   
+let g=$g+1
+
+echo ""
+
+echo "Group ${grupo} created!"
+
+done
+
+#sudo groupadd GRP_ADM
+
+#sudo groupadd GRP_VEN
+
+#sudo groupadd GRP_SEC
+
+echo ""
+
+echo "Informe a quantidade de usuários que deseja criar: "
+read usu
+
+x=0
+while [ $x -lt $usu ]; do
+   echo "Digite um nome para o usuário: "
+   read nome
+   sudo useradd $nome -m -c "Usuarios do sistema" -s /bin/bash -p $(openssl passwd -crypt Senha123)
+   sudo chmod 770 /home/$nome
+      
+   echo "---Digite os grupos do usuario---"
+   
+   echo "Digite o nome do grupo do usuário: "
+   read grupo1
+   sudo usermod -G $grupo1 $nome
+    
+let x=$x+1
+
+echo "Usuario ${nome} created!"
+
+done
+
+echo ""
+ 
+echo "---Especificando permissão dos diretorios---"
+
+sudo chown root:GRP_ADM /adm
+sudo chown root:GRP_VEN /ven	
+sudo chown root:GRP_SEC /sec
+
+sudo chmod 770 /adm
+sudo chmod 770 /ven
+sudo chmod 770 /sec
+sudo chmod 777 /public
+
+echo ""
+
+echo "---Permissão dada com sucesso---"
+
+echo "----FIM----"
