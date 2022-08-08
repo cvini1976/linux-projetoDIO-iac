@@ -3,8 +3,8 @@
 # Autor: Carlos Vinicios
 # Data: 08/08/2022
 
-# Descrição: Script para criar uma estrutura de diretorio, grupo, usuarios
-# Colocando permissoes de grupos e para usuarios desses grupos
+# Descrição: Script para criar uma estrutura de diretorios, grupos, usuarios
+# e permissoes...
 
 echo "----Criando os diretorios na raiz----"
 
